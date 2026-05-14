@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react'
 
-function Vehicles(){
+function Vehicles({onLogout, refreshKey}){
     const [vehicles, setVehicles] = useState([])
 
     useEffect(() => {
         fetchVehicles()
-    },[])
+    },[refreshKey])
 
     async function fetchVehicles() {
         const token = localStorage.getItem('token')
@@ -15,7 +15,8 @@ function Vehicles(){
             }
         })
         if (response.status == 401){
-            setVehicles([])
+            localStorage.removeItem('token')
+            onLogout()
             return
         }
         const data = await response.json()
