@@ -15,7 +15,7 @@ function App(){
                 <h1 className='text-xl font-bold text-blue-400'>FLEET</h1>
                 {isLoggedIn && (
                     <button 
-                        className='bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-sm'
+                        className='bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-semibold transition-all'
                         onClick={() => setIsLoggedIn(false)}>
                         Logout  
                     </button>
@@ -26,10 +26,15 @@ function App(){
                     ?<>
                         <Vehicles onLogout = {() => setIsLoggedIn(false)} refreshKey={refreshKey}/>
                         {showform &&<AddVehicle onAdd={() => setRefreshKey(k => k+1)}/>}
-                        <button 
-                            className='bg-blue-600 hover: bg-blue-700 px-4 py-2 rounded mt-4'
-                            onClick={() => {setShowform(!showform)}}>
-                            {showform ? 'Cancel' : 'Add Vehicle'}
+                        <button
+                            onClick={() => setShowform(!showform)}
+                            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all cursor-pointer ${
+                            showform
+                                ? 'bg-gray-600 hover:bg-gray-500 text-gray-200'
+                                : 'bg-blue-600 hover:bg-blue-500 text-white'
+                            }`}
+                        >
+                            {showform ? 'Cancel' : '+ Add Vehicle'}
                         </button>
                     </>  
                 : <Login onLogin = {() => setIsLoggedIn(true)}/>}
